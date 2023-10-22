@@ -2,7 +2,7 @@
 const sideNav = document.querySelector(".sidenav");
 M.Sidenav.init(sideNav, {});
 
-//slider
+//image slider
 const slider = document.querySelector(".slider");
 M.Slider.init(slider, {
   height: 650,
@@ -10,7 +10,7 @@ M.Slider.init(slider, {
   interval: 4000,
 });
 
-//autocomplete
+//autocomplete data
 const autoComp = document.querySelector(".autocomplete");
 M.Autocomplete.init(autoComp, {
   data: {
@@ -47,5 +47,3 @@ M.Autocomplete.init(autoComp, {
     Papillon: null,
   },
 });
-
-//search scroll to function
