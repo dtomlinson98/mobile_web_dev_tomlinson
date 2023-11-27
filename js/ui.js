@@ -1,3 +1,5 @@
+const tasks = document.querySelector(".tasks"); // tasks is th class id from index page
+
 // mobile sideNav
 const sideNav = document.querySelector(".sidenav");
 M.Sidenav.init(sideNav, {});
@@ -47,3 +49,21 @@ M.Autocomplete.init(autoComp, {
     Papillon: null,
   },
 });
+
+const renderBreed = (data, id) => {
+  //adds document to webpage
+  const html = `
+  <div class="card-panel task white row" data-id ="${id}">
+            
+            <div class="breed-detail">
+                <div class="breed-title">${data.breed}</div>
+                <div class="breed-description">${data.description}</div>
+            </div>
+            <div class="breed-delete">
+                <i class="material-icons" data-id ="${id}">delete_outline</i>
+            </div>
+        </div>
+  `;
+
+  tasks.innerHTML += html; // tasks is the class id from index page.. copy task section in index page
+};

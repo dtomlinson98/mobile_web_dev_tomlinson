@@ -6,6 +6,7 @@ const assets = [
   "/index.html",
   "/pages/search.html",
   "/pages/contact.html",
+  "/pages/favorites.html",
   "/js/app.js",
   "/js/ui.js",
   "/js/materialize.min.js",
@@ -21,6 +22,17 @@ const assets = [
   "img/shih-tzu",
   "https://fonts.googleapis.com/icon?family=Material+Icons",
 ];
+
+//cache size limit
+const limitCacheSize = (name, size) => {
+  caches.open(name).then((cache) => {
+    cache.keys().then((keys) => {
+      if (keys.length > size) {
+        cache.delete(keys[0]).then(limitCacheSize(name, size));
+      }
+    });
+  });
+};
 
 self.addEventListener("install", function (event) {
   console.log(`SW: Event fired: ${event.type}`);

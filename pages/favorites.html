@@ -13,7 +13,7 @@
     />
     <link rel="manifest" href="/manifest.json" />
 
-    <title>Canine Connect - Contact</title>
+    <title>Canine Connect - Favorites</title>
   </head>
   <body id="home" class="scrollspy">
     <!--Nav Bar-->
@@ -31,10 +31,10 @@
             </a>
             <ul class="right hide-on-med-and-down">
               <li>
-                <a href="index.html">Home</a>
+                <a href="/index.html">Home</a>
               </li>
               <li>
-                <a href="pages/search.html">Search</a>
+                <a href="/pages/search.html">Search</a>
               </li>
               <li>
                 <a href="/pages/contact.html">Contact</a>
@@ -63,50 +63,40 @@
       </li>
     </ul>
 
-    <!--Contact Form-->
-    <section class="contact-form">
-      <div class="row light-blue contact">
-        <div class="col s12">
-          <h2>Contact Us</h2>
-          <p>
-            Feel free to get in touch with us if you have any questions or
-            inquiries. <br />We're here to help!
-          </p>
-          <p>
-            <strong>
-              Address: 123 Main Street City, State 12345 <br />Phone: (123)
-              456-7890 <br />Email: info@example.com</strong
-            >
-            <br />You can also reach out to us via the contact form below. We'll
-            get back to you as soon as possible.
-          </p>
-          <form>
-            <label for="fname">First Name:</label>
-            <input type="text" id="fname" name="fname" required />
+    <!--Breeds-->
+    <div class="tasks container grey-text text-darken-1">
+          <!--<img src="/img/french-bulldog.jpg" class="responsive-img materialboxed" alt="">-->
+  </div>
 
-            <label for="lname">Last Name:</label>
-            <input type="text" id="lname" name="lname" required />
+  <div class="center">
+      <a class="btn-floating btn-small btn-large add-btn sidenav-trigger" data-target="side-form">
+          <i class="material-icons">add</i>
+      </a>
+  </div>
 
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required />
+  <div id="side-form" class="sidenav side-form">
+      <form class="add-task container section">
+          <h6>New Task</h6>
+          <div class="divider"></div>
+          <div class="input-field">
+              <input placeholder="Enter Task title" id="title" class="validate" type="text">
+              <label for="title">Task Title</label>
+          </div>
+          <div class="input-field">
+              <input placeholder="Enter Task description" id="description" class="validate" type="text">
+              <label for="description">Task Description</label>
+          </div>
 
-            <label for="address">Address:</label>
-            <input type="text" id="address" name="address" required />
+          <div class="input-field center">
+              <button class="btn-small">Add</button>
+          </div>
+  </div>
+  </form>
+  </div>
 
-            <label for="comments">Comments:</label>
-            <textarea id="comments" name="comments" rows="4"></textarea>
-
-            <input type="submit" value="Submit" />
-          </form>
-          <p>
-            We look forward to hearing from you and assisting you with any
-            information or assistance you need.
-          </p>
-        </div>
-      </div>
-    </section>
     <!--JavaScript-->
     <script type="text/javascript" src="/js/materialize.min.js"></script>
     <script src="/js/ui.js"></script>
+    <script type="module" src="/js/db.js"></script>
   </body>
 </html>
