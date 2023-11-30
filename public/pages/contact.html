@@ -4,14 +4,14 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!--minified CSS -->
-    <link rel="stylesheet" href="/css/materialize.min.css" />
-    <link rel="stylesheet" href="/css/app.css" />
+    <link rel="stylesheet" href="/public/css/materialize.min.css" />
+    <link rel="stylesheet" href="/public/css/app.css" />
     <!--Import Google Icon Font-->
     <link
       href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet"
     />
-    <link rel="manifest" href="/manifest.json" />
+    <link rel="manifest" href="/public/manifest.json" />
 
     <title>Canine Connect - Contact</title>
   </head>
@@ -21,9 +21,9 @@
       <nav class="light-blue lighten-3">
         <div class="container">
           <div class="nav-wrapper">
-            <a href="/index.html" class="brand-logo">Canine Connect</a>
+            <a href="/public/index.html" class="brand-logo">Canine Connect</a>
             <a
-              href="/index.html"
+              href="/public/index.html"
               data-target="mobile-nav"
               class="sidenav-trigger"
             >
@@ -31,16 +31,16 @@
             </a>
             <ul class="right hide-on-med-and-down">
               <li>
-                <a href="index.html">Home</a>
+                <a href="/public/index.html">Home</a>
               </li>
               <li>
-                <a href="pages/search.html">Search</a>
+                <a href="/publicpages/search.html">Search</a>
               </li>
               <li>
-                <a href="/pages/contact.html">Contact</a>
+                <a href="/public/pages/contact.html">Contact</a>
               </li>
               <li>
-                <a href="/pages/favorites.html">Favorites</a>
+                <a href="/public/pages/favorites.html">Favorites</a>
               </li>
             </ul>
           </div>
@@ -50,16 +50,16 @@
     <!--Mobile Nav-->
     <ul class="sidenav" id="mobile-nav">
       <li>
-        <a href="index.html">Home</a>
+        <a href="/public/index.html">Home</a>
       </li>
       <li>
-        <a href="pages/search.html">Search</a>
+        <a href="/public/pages/search.html">Search</a>
       </li>
       <li>
-        <a href="/pages/contact.html">Contact</a>
+        <a href="/public/pages/contact.html">Contact</a>
       </li>
       <li>
-        <a href="/pages/favorites.html">Favorites</a>
+        <a href="/public/pages/favorites.html">Favorites</a>
       </li>
     </ul>
 
@@ -106,7 +106,9 @@
       </div>
     </section>
     <!--JavaScript-->
-    <script type="text/javascript" src="/js/materialize.min.js"></script>
-    <script src="/js/ui.js"></script>
+    <script type="text/javascript" src="/public/js/materialize.min.js"></script>
+    <script src="/public/js/ui.js"></script>
+    <script src="/public/js/app.js"></script>
+    <script type="module" src="/public/js/db.js"></script>
   </body>
 </html>

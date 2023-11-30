@@ -6,6 +6,9 @@ import {
   collection,
   getDocs,
   onSnapshot,
+  addDoc,
+  deleteDoc,
+  doc,
 } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore.js"; //same link as above just change app to firestore
 
 // Your web app's Firebase configuration
@@ -20,11 +23,11 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const db = getFirestore(app); //nearly everything below can all be copied unless noted
+const db = getFirestore(app);
 
 async function getBreeds(db) {
-  const breedCol = collection(db, "breeds"); // change tasks to collection name
-  const breedSnapshot = await getDocs(breedCol); // also change variables to something related to project
+  const breedCol = collection(db, "breeds");
+  const breedSnapshot = await getDocs(breedCol);
   const breedList = taskSnapshot.docs.map((doc) => doc);
   return breedList;
 }
@@ -38,7 +41,29 @@ const unsub = onSnapshot(collection(db, "breeds"), (doc) => {
       renderBreed(change.doc.data(), change.doc.id);
     }
     if (change.type === "removed") {
-      //do something
+      removeBreed(change.doc.id);
     }
   });
+});
+
+// add new breed
+const form = document.querySelector("form");
+form.addEventListener("submit", (event) => {
+  event.preventDefault();
+
+  addDoc(collection(db, "breeds"), {
+    breed: form.title.value,
+    description: form.description.value,
+  }).catch((error) => console.log(error));
+  form.title.value = "";
+  form.description.value = "";
+});
+
+//delete breed
+const breedContatiner = document.querySelector(".breeds");
+breedContatiner.addEventListener("click", (event) => {
+  if (event.target.tagName === "I") {
+    const id = event.target.getAttribute("data-id");
+    deleteDoc(doc(db, "breeds", id));
+  }
 });

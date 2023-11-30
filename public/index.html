@@ -4,14 +4,14 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!--minified CSS -->
-    <link rel="stylesheet" href="/css/materialize.min.css" />
-    <link rel="stylesheet" href="/css/app.css" />
+    <link rel="stylesheet" href="/public/css/materialize.min.css" />
+    <link rel="stylesheet" href="/public/css/app.css" />
     <!--Import Google Icon Font-->
     <link
       href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet"
     />
-    <link rel="manifest" href="/manifest.json" />
+    <link rel="manifest" href="/public/manifest.json" />
 
     <title>Canine Connect</title>
   </head>
@@ -21,22 +21,22 @@
       <nav class="light-blue lighten-3">
         <div class="container">
           <div class="nav-wrapper">
-            <a href="/index.html" class="brand-logo">Canine Connect</a>
+            <a href="/public/index.html" class="brand-logo">Canine Connect</a>
             <a href="" data-target="mobile-nav" class="sidenav-trigger">
               <i class="material-icons">menu</i>
             </a>
             <ul class="right hide-on-med-and-down">
               <li>
-                <a href="index.html">Home</a>
+                <a href="/public/index.html">Home</a>
               </li>
               <li>
-                <a href="pages/search.html">Search</a>
+                <a href="/public/pages/search.html">Search</a>
               </li>
               <li>
-                <a href="/pages/contact.html">Contact</a>
+                <a href="/public/pages/contact.html">Contact</a>
               </li>
               <li>
-                <a href="/pages/favorites.html">Favorites</a>
+                <a href="/public/pages/favorites.html">Favorites</a>
               </li>
             </ul>
           </div>
@@ -46,16 +46,16 @@
     <!--Mobile Nav-->
     <ul class="sidenav" id="mobile-nav">
       <li>
-        <a href="index.html">Home</a>
+        <a href="/public/index.html">Home</a>
       </li>
       <li>
-        <a href="pages/search.html">Search</a>
+        <a href="/public/pages/search.html">Search</a>
       </li>
       <li>
-        <a href="/pages/contact.html">Contact</a>
+        <a href="/public/pages/contact.html">Contact</a>
       </li>
       <li>
-        <a href="/pages/favorites.html">Favorites</a>
+        <a href="/public/pages/favorites.html">Favorites</a>
       </li>
     </ul>
 
@@ -63,7 +63,7 @@
     <section class="slider">
       <ul class="slides">
         <li>
-          <img src="img/french-bulldog.jpg" />
+          <img src="/public/img/french-bulldog.jpg" />
           <!-- random image -->
           <div class="caption left-align black-text">
             <h3>Connecting Canine Lovers with Local Breeders!</h3>
@@ -73,7 +73,7 @@
           </div>
         </li>
         <li>
-          <img src="img/dachshund.jpg" />
+          <img src="/public/img/dachshund.jpg" />
           <!-- random image -->
           <div class="caption center-align">
             <h3>This is our big Tagline!</h3>
@@ -83,7 +83,7 @@
           </div>
         </li>
         <li>
-          <img src="img/saint-bernard.jpg" />
+          <img src="/public/img/saint-bernard.jpg" />
           <!-- random image -->
           <div class="caption right-align">
             <h3>Find your furry friend!</h3>
@@ -93,7 +93,7 @@
           </div>
         </li>
         <li>
-          <img src="img/golden-doodle.jpg" />
+          <img src="/public/img/golden-doodle.jpg" />
           <!-- random image -->
           <div class="caption right-align">
             <h3>Right Aligned Caption</h3>
@@ -128,7 +128,9 @@
       </div>
     </section>
     <!--JavaScript-->
-    <script type="text/javascript" src="/js/materialize.min.js"></script>
-    <script src="/js/ui.js"></script>
+    <script type="text/javascript" src="/public/js/materialize.min.js"></script>
+    <script src="/public/js/ui.js"></script>
+    <script src="/public/js/app.js"></script>
+    <script type="module" src="/public/js/db.js"></script>
   </body>
 </html>

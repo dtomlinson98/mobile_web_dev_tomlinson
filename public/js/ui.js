@@ -1,8 +1,12 @@
-const tasks = document.querySelector(".tasks"); // tasks is th class id from index page
+const breeds = document.querySelector(".breeds");
 
 // mobile sideNav
 const sideNav = document.querySelector(".sidenav");
 M.Sidenav.init(sideNav, {});
+
+// Add Tasks
+const forms = document.querySelectorAll(".side-form");
+M.Sidenav.init(forms, { edge: "left" });
 
 //image slider
 const slider = document.querySelector(".slider");
@@ -53,7 +57,7 @@ M.Autocomplete.init(autoComp, {
 const renderBreed = (data, id) => {
   //adds document to webpage
   const html = `
-  <div class="card-panel task white row" data-id ="${id}">
+  <div class="card-panel breed white row" data-id ="${id}">
             
             <div class="breed-detail">
                 <div class="breed-title">${data.breed}</div>
@@ -65,5 +69,11 @@ const renderBreed = (data, id) => {
         </div>
   `;
 
-  tasks.innerHTML += html; // tasks is the class id from index page.. copy task section in index page
+  breeds.innerHTML += html;
+};
+
+//remove breed from DOM
+const removeBreed = (id) => {
+  const breed = document.querySelector(`.breed[data-id =${id}]`);
+  breed.remove();
 };
