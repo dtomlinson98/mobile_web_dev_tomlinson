@@ -1,5 +1,4 @@
 // Import the functions you need from the SDKs you need
-// Import the functions you need from the SDKs you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js";
 import {
   getFirestore,
@@ -9,7 +8,12 @@ import {
   addDoc,
   deleteDoc,
   doc,
-} from "https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore.js"; //same link as above just change app to firestore
+  enableIndexedDbPersistence,
+} from "https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore.js";
+import {
+  getAuth,
+  onAuthStateChanged,
+} from "https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -24,46 +28,86 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
+const auth = getAuth(app);
 
-async function getBreeds(db) {
-  const breedCol = collection(db, "breeds");
-  const breedSnapshot = await getDocs(breedCol);
-  const breedList = taskSnapshot.docs.map((doc) => doc);
-  return breedList;
-}
+// Wrap the rest of your code in the DOMContentLoaded event listener
+document.addEventListener("DOMContentLoaded", function () {
+  async function getBreeds(db) {
+    const breedCol = collection(db, "breeds");
+    const breedSnapshot = await getDocs(breedCol);
+    const breedList = breedSnapshot.docs.map((doc) => doc);
+    return breedList;
+  }
 
-const unsub = onSnapshot(collection(db, "breeds"), (doc) => {
-  // console.log(doc.docChanges()); //test to see if docs are added/removed
-  doc.docChanges().forEach((change) => {
-    console.log(change, change.doc.data(), change.doc.id);
-    if (change.type === "added") {
-      //Call render function in UI
-      renderBreed(change.doc.data(), change.doc.id);
+  enableIndexedDbPersistence(db).catch((err) => {
+    if (err.code == "failed-precondition") {
+      console.log("Persistence failed");
+    } else if (err.code == "unimplemented") {
+      console.log("Persistence is not valid");
     }
-    if (change.type === "removed") {
-      removeBreed(change.doc.id);
+  });
+
+  const unsub = onSnapshot(collection(db, "breeds"), (doc) => {
+    // console.log(doc.docChanges()); //test to see if docs are added/removed
+    doc.docChanges().forEach((change) => {
+      change, change.doc.data(), change.doc.id;
+      if (change.type === "added") {
+        // Call render function in UI
+        renderBreed(change.doc.data(), change.doc.id);
+      }
+      if (change.type === "removed") {
+        removeBreed(change.doc.id);
+      }
+    });
+  });
+
+  // Add new breed
+  /*   const form = document.querySelector("form");
+  form.addEventListener("submit", (event) => {
+    event.preventDefault();
+
+    addDoc(collection(db, "breeds"), {
+      breed: form.title.value,
+      description: form.description.value,
+    }).catch((error) => console.log(error));
+    form.title.value = "";
+    form.description.value = "";
+  }); */
+
+  // Delete breed
+  const breedContainer = document.querySelector(".breeds");
+  breedContainer.addEventListener("click", (event) => {
+    if (event.target.tagName === "I") {
+      const id = event.target.getAttribute("data-id");
+      deleteDoc(doc(db, "breeds", id));
     }
   });
 });
 
-// add new breed
-const form = document.querySelector("form");
-form.addEventListener("submit", (event) => {
-  event.preventDefault();
+//listen for auth status changes
+onAuthStateChanged(auth, (user) => {
+  // Check for user status
+  // console.log(user);
+  if (user) {
+    console.log("User log in: ", user.email);
+    getBreeds(db).then((snapshot) => {
+      setupBreeds(snapshot);
+    });
+    setupUI(user);
+    const form = document.querySelector("form");
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
 
-  addDoc(collection(db, "breeds"), {
-    breed: form.title.value,
-    description: form.description.value,
-  }).catch((error) => console.log(error));
-  form.title.value = "";
-  form.description.value = "";
-});
-
-//delete breed
-const breedContatiner = document.querySelector(".breeds");
-breedContatiner.addEventListener("click", (event) => {
-  if (event.target.tagName === "I") {
-    const id = event.target.getAttribute("data-id");
-    deleteDoc(doc(db, "breeds", id));
+      addDoc(collection(db, "breeds"), {
+        breed: form.title.value,
+        description: form.description.value,
+      }).catch((error) => console.log(error));
+      form.title.value = "";
+      form.description.value = "";
+    });
+  } else {
+    console.log("User Logged out");
+    setupUI();
+    setupBreeds([]);
   }
 });

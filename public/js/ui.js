@@ -1,10 +1,33 @@
+// setup materialize components
+document.addEventListener("DOMContentLoaded", function () {
+  var modals = document.querySelectorAll(".modal");
+  M.Modal.init(modals);
+
+  var items = document.querySelectorAll(".collapsible");
+  M.Collapsible.init(items);
+});
+
 const breeds = document.querySelector(".breeds");
+const loggedOutLinks = document.querySelectorAll(".logged-out");
+const loggedInLinks = document.querySelectorAll(".logged-in");
+
+const setupUI = (user) => {
+  if (user) {
+    //toggle UI elements
+    loggedInLinks.forEach((item) => (item.style.display = "block"));
+    loggedOutLinks.forEach((item) => (item.style.display = "none"));
+  } else {
+    //toggle UI elements
+    loggedInLinks.forEach((item) => (item.style.display = "none"));
+    loggedOutLinks.forEach((item) => (item.style.display = "block"));
+  }
+};
 
 // mobile sideNav
 const sideNav = document.querySelector(".sidenav");
 M.Sidenav.init(sideNav, {});
 
-// Add Tasks
+// Add breed
 const forms = document.querySelectorAll(".side-form");
 M.Sidenav.init(forms, { edge: "left" });
 
@@ -54,6 +77,28 @@ M.Autocomplete.init(autoComp, {
   },
 });
 
+//Populate data
+const setupBreeds = (data) => {
+  let html = "";
+  data.forEach((doc) => {
+    const breed = doc.data();
+    const li = `    
+    <div class="card-panel task white row" data-id ="${breed.id}">
+    <img src="/img/task.png" class="responsive-img materialboxed" alt="">
+    <div class="task-detail">
+        <div class="task-title">${breed.title}</div>
+        <div class="task-description">${breed.description}</div>
+    </div>
+    <div class="task-delete">
+        <i class="material-icons" data-id ="${breed.id}">delete_outline</i>
+    </div>
+</div>`;
+    html += li;
+  });
+
+  breeds.innerHTML = html;
+};
+
 const renderBreed = (data, id) => {
   //adds document to webpage
   const html = `
@@ -74,6 +119,6 @@ const renderBreed = (data, id) => {
 
 //remove breed from DOM
 const removeBreed = (id) => {
-  const breed = document.querySelector(`.breed[data-id =${id}]`);
+  const breed = document.querySelector(`.breed[data-id ="${id}"]`);
   breed.remove();
 };

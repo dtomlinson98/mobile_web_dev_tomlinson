@@ -1,8 +1,8 @@
-const staticCache = "Static-cache-v4";
-const dynamicCache = "Dynamic-cache-v6";
+const staticCache = "Static-cache-v12";
+const dynamicCache = "Dynamic-cache-v11";
 
 const assets = [
-  "/",
+  "/public/",
   "/public/index.html",
   "/public/pages/search.html",
   "/public/pages/contact.html",
@@ -20,6 +20,7 @@ const assets = [
   "/public/img/great-dane.jpg",
   "/public/img/saint-bernard.jpg",
   "/public/img/shih-tzu.jpg",
+  "/public/img/favicon.png",
   "https://fonts.googleapis.com/icon?family=Material+Icons",
 ];
 
@@ -39,7 +40,7 @@ self.addEventListener("activate", function (event) {
   //fires after the service worker completes its installation.
   // It's a place for the service worker to clean up from
   // previous service worker versions.
-  // console.log(`SW: Event fired: ${event.type}`);
+  console.log(`SW: Event fired: ${event.type}`);
   event.waitUntil(
     caches.keys().then((keys) => {
       return Promise.all(
@@ -50,26 +51,28 @@ self.addEventListener("activate", function (event) {
     })
   );
 });
-//comment
+
 self.addEventListener("fetch", function (event) {
   //fires whenever the app requests a resource (file or data)
-  // console.log(`SW: Fetching ${event.request.url}`);
+  console.log(`SW: Fetching ${event.request.url}`);
   //next, go get the requested resource from the network
-  event.respondWith(
-    caches
-      .match(event.request)
-      .then((response) => {
-        return (
-          response ||
-          fetch(event.request).then((fetchRes) => {
-            return caches.open(dynamicCache).then((cache) => {
-              cache.put(event.request.url, fetchRes.clone());
-              limitCacheSize(dynamicCache, 3);
-              return fetchRes;
-            });
-          })
-        );
-      })
-      .catch(() => caches.match("/public/pages/fallback.html"))
-  );
+  if (event.request.url.indexOf("firestore.googleapis.com") === -1) {
+    event.respondWith(
+      caches
+        .match(event.request)
+        .then((response) => {
+          return (
+            response ||
+            fetch(event.request).then((fetchRes) => {
+              return caches.open(dynamicCache).then((cache) => {
+                cache.put(event.request.url, fetchRes.clone());
+                limitCacheSize(dynamicCache, 15);
+                return fetchRes;
+              });
+            })
+          );
+        })
+        .catch(() => caches.match("/public/pages/fallback.html"))
+    );
+  }
 });
