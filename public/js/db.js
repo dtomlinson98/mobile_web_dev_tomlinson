@@ -54,15 +54,17 @@ document.addEventListener("DOMContentLoaded", function () {
       if (change.type === "added") {
         // Call render function in UI
         renderBreed(change.doc.data(), change.doc.id);
+        showNotification("Breed added", breedData.breed);
       }
       if (change.type === "removed") {
         removeBreed(change.doc.id);
+        showNotification("Breed removed", breedData.breed);
       }
     });
   });
 
   // Add new breed
-  /*   const form = document.querySelector("form");
+  const form = document.querySelector("form");
   form.addEventListener("submit", (event) => {
     event.preventDefault();
 
@@ -72,7 +74,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }).catch((error) => console.log(error));
     form.title.value = "";
     form.description.value = "";
-  }); */
+  });
 
   // Delete breed
   const breedContainer = document.querySelector(".breeds");
@@ -86,8 +88,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
 //listen for auth status changes
 onAuthStateChanged(auth, (user) => {
-  // Check for user status
-  // console.log(user);
   if (user) {
     console.log("User log in: ", user.email);
     getBreeds(db).then((snapshot) => {
@@ -111,3 +111,13 @@ onAuthStateChanged(auth, (user) => {
     setupBreeds([]);
   }
 });
+
+function showNotification(title, message) {
+  Notification.requestPermission().then((permission) => {
+    if (permission === "granted") {
+      new Notification(title, {
+        body: message,
+      });
+    }
+  });
+}
