@@ -62,7 +62,7 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   // Add new breed
-  /*   const form = document.querySelector("form");
+  const form = document.querySelector("form");
   form.addEventListener("submit", (event) => {
     event.preventDefault();
 
@@ -72,7 +72,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }).catch((error) => console.log(error));
     form.title.value = "";
     form.description.value = "";
-  }); */
+  });
 
   // Delete breed
   const breedContainer = document.querySelector(".breeds");
